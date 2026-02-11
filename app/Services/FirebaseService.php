@@ -34,21 +34,24 @@ class FirebaseService
 
     //     return $this->messaging->send($message);
     // }
-    public function sendToTokens(
+   public function sendToTokens(
         array $tokens,
         string $title,
         string $body,
         array $data = []
     ): MulticastSendReport {
-        // Buat satu objek pesan saja sebagai template
-        $message = CloudMessage::new()
-            ->withNotification(Notification::create($title, $body))
-            ->withData($data);
 
-        // Kirim satu template pesan tersebut ke banyak token sekaligus
-        // Cara ini otomatis memvalidasi tipe data di VS Code (Intelephense)
+        $payload = array_merge($data, [
+            'title' => $title,
+            'body'  => $body,
+        ]);
+
+        $message = CloudMessage::new()
+            ->withData($payload); // ✅ HANYA DATA
+
         return $this->messaging->sendMulticast($message, $tokens);
     }
+
 
     public function sendNotification(
         string $token,
