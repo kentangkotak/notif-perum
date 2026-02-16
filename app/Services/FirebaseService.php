@@ -61,10 +61,10 @@ class FirebaseService
     ): void {
         $message = CloudMessage::fromArray([
             'token'        => $token,
-            'notification' => [
-                'title' => $title,
-                'body'  => $body,
-            ],
+            // 'notification' => [
+            //     'title' => $title,
+            //     'body'  => $body,
+            // ],
             'data'         => $data,
         ]);
 
